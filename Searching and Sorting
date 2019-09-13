@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jul  7 20:31:40 2019
+
+@author: lazybear
+"""
+
+def selsort(L):
+    suffixstart = 0
+    while suffixstart < len(L):
+        print(L)
+        for i in range(suffixstart, len(L)):
+            if L[i] < L[suffixstart]:
+                L[i], L[suffixstart] = L[suffixstart], L[i]
+        suffixstart += 1
+    return L
+        
+testList = [1,3,5,7,2,6,25,18,13]
+       
+print('')
+print(selsort(testList))
+print(testList)
+
+
+#merge sort
+def merge(left, right, compare):
+    result = []
+    i,j = 0,0
+    while i < len(left) and j < len(right): #when both lists are non-empty
+        if compare(left[i], right[j]):
+            result.append(left[i])
+            i+=1
+        else:
+            result.append(right[j])
+            j+=1
+    while i < len(left):
+        result.append(left[i])
+        i+=1
+    while j< len(right):
+        result.append(right[j])
+        j+=1
+    return result
+
+def mergeSort(L, compare = lambda x,y: x<y):
+    #base case
+    if len(L) < 2:
+#        print(L)  #for checking
+        return L
+    
+    else:
+#        print(L) #for checking
+        m = len(L)//2
+        left = mergeSort(L[:m], compare)
+        right = mergeSort(L[m:], compare)
+        return merge(left, right, compare)
+
+testList = [1,3,5,7,2,6,25,18,13]
+print('')
+print(mergeSort(testList))
+print(testList)
+#exploiting functions as parameters
+def lastNameFirstName(name1, name2):
+    arg1 = name1.split()
+    arg2 = name2.split()
+    if arg1[1] != arg2[1]:
+        return arg1[1] < arg2[1]
+    else:
+        return arg1[0] < arg2[0]
+    
+def firstNameLastName(name1, name2):
+    arg1 = name1.split()
+    arg2 = name2.split()
+    if arg1[0] != arg2[0]:
+        return arg1[0] < arg2[0] #note that python can compare alphabet. 'a'<'b'<'c'...
+    else:
+        return arg1[1] < arg2[1]
+
+L = ['Tom Brady', 'Eric Grimson', 'Gisele Bundchen']
+newL = mergeSort(L, lastNameFirstName)
+print('Sorted by last name =', newL)
+
+newL = mergeSort(L, firstNameLastName)
+print('Sorted by first name =', newL)
+        
+#hash table
+numBuckets = 5
+3%numBuckets
+99740 % 17
+61898 % 17
+        
